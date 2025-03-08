@@ -3,8 +3,7 @@ import datetime
 import jwt
 from sqlalchemy.exc import SQLAlchemyError
 from ..models import db
-from ..models.user import User
-from werkzeug.security import generate_password_hash, check_password_hash
+from ..models import User
 
 # Load SECRET_KEY from env or config
 JWT_SECRET = os.getenv("SECRET_KEY", "development-secret")

@@ -3,7 +3,7 @@ import jwt
 from functools import wraps
 from flask import request, jsonify
 from sqlalchemy.exc import SQLAlchemyError
-from ..models.user import User
+from ..models import User
 
 JWT_SECRET = os.getenv("SECRET_KEY", "development-secret")
 JWT_ALGORITHM = "HS256"
