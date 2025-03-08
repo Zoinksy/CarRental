@@ -44,3 +44,35 @@ def login():
         return jsonify(result), 200
     else:
         return jsonify(result), 401
+
+@auth_bp.route("/users", methods=["GET"])
+def get_users():
+
+    from ..models.user import User  # or wherever your User model is
+    users = User.query.all()
+
+    # Convert each User object to a dict
+    user_list = []
+    for u in users:
+        user_list.append({
+            "id": u.id,
+            "username": u.username,
+            "created_at": u.created_at.isoformat() if u.created_at else None
+        })
+
+    return jsonify({"success": True, "users": user_list}), 200
+
+@auth_bp.route("/users/<int:user_id>", methods=["GET"])
+def get_user(user_id):
+    from ..models.user import User
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"success": False, "message": "User not found"}), 404
+
+    user_data = {
+        "id": user.id,
+        "username": user.username,
+        "created_at": user.created_at.isoformat() if user.created_at else None
+    }
+    return jsonify({"success": True, "user": user_data}), 200
+
