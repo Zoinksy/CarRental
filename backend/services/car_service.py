@@ -11,9 +11,18 @@ class CarService:
         Business logic to fetch cars that are not currently rented.
         Possibly filter on 'is_available = True' or 'rental_state = idle', etc.
         """
-        cars = Car.query.filter_by(is_available=True).all()
-        # Convert to a serializable format (dict) if needed
-        return [car.to_dict() for car in cars]
+        cars = Car.query.filter_by(available=True).all()
+        results = []
+        for car in cars:
+            results.append({
+                "id": car.id,
+                "vin": car.vin,
+                "location": car.location,
+                "locked": car.locked,
+                "available": car.available
+                # etc.
+            })
+        return results
 
     @staticmethod
     def start_rental(current_user, car_id):

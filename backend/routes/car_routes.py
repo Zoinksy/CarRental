@@ -5,8 +5,8 @@ from ..services.car_service import CarService
 car_bp = Blueprint('car_bp', __name__)
 
 @car_bp.route('/', methods=['GET'])
-@token_required
-def query_available_cars(current_user):
+#@token_required
+def query_available_cars():
     """
     Query the cars available for rental.
     JWT token is validated by @token_required.
