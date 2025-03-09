@@ -1,0 +1,129 @@
+/* index.css */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    background-color: #f0f2f5;
+}
+
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    background: linear-gradient(135deg, #6fd7c3 0%, #3cb2ad 100%);
+    clip-path: ellipse(75% 100% at 50% 0%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-content {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    color: white;
+}
+
+.hero-text {
+    max-width: 45%;
+}
+
+    .hero-text h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        line-height: 1.2;
+    }
+
+    .hero-text p {
+        font-size: 1.2rem;
+        margin-top: 1rem;
+        line-height: 1.5;
+    }
+
+.hero-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+    .hero-buttons .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 1.1rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: background-color 0.3s, transform 0.3s;
+        background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .hero-buttons .btn-primary {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    }
+
+    .hero-buttons .btn-danger {
+        background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+    }
+
+    .hero-buttons .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+.hero-illustration img {
+    max-width: 400px;
+    width: 100%;
+    animation: floatCar 3s ease-in-out infinite alternate;
+}
+
+@keyframes floatCar {
+    from {
+        transform: translateY(0px);
+    }
+
+    to {
+        transform: translateY(10px);
+    }
+}
+
+.features-section {
+    padding: 4rem 2rem;
+    background-color: #ffffff;
+    text-align: center;
+}
+
+    .features-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+    }
+
+.features {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.feature {
+    max-width: 300px;
+    margin: 1rem;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .feature h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature p {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
