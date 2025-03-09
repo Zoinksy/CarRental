@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b6d34c07-8487-4c7c-b22c-49700a2fcaae" name="Changes" comment="merge auth">
+      <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Zoinksy&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Zoinksy/CarRental.git&quot;,
+    &quot;accountId&quot;: &quot;8985dc8a-f5ab-4fa5-9f57-c4ad3eb3d342&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2u35ytL6NfZD9O6T9RXkianT862" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.auth_service.executor": "Run",
+    "Python.token_decorator.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "branch-care-nu-merge-momentan"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Eden\PycharmProjects\CarRental\backend" />
+      <recent name="C:\Users\Eden\PycharmProjects\CarRental\backend\backendd" />
+      <recent name="C:\Users\Eden\PycharmProjects\CarRental\backend\routess" />
+      <recent name="C:\Users\Eden\PycharmProjects\CarRental\backend\servicess" />
+      <recent name="C:\Users\Eden\PycharmProjects\CarRental\backend\models" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-0e3be3396995-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23339.19" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b6d34c07-8487-4c7c-b22c-49700a2fcaae" name="Changes" comment="" />
+      <created>1741464675277</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1741464675277</updated>
+    </task>
+    <task id="LOCAL-00001" summary="workspace backend">
+      <option name="closed" value="true" />
+      <created>1741464978939</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1741464978939</updated>
+    </task>
+    <task id="LOCAL-00002" summary="login, auth">
+      <option name="closed" value="true" />
+      <created>1741472074739</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1741472074739</updated>
+    </task>
+    <task id="LOCAL-00003" summary="post for login and register">
+      <option name="closed" value="true" />
+      <created>1741477728973</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1741477728974</updated>
+    </task>
+    <task id="LOCAL-00004" summary="get users method">
+      <option name="closed" value="true" />
+      <created>1741478054747</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1741478054747</updated>
+    </task>
+    <task id="LOCAL-00005" summary="merge auth">
+      <option name="closed" value="true" />
+      <created>1741523484341</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1741523484341</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="workspace backend" />
+    <MESSAGE value="login, auth" />
+    <MESSAGE value="post for login and register" />
+    <MESSAGE value="get users method" />
+    <MESSAGE value="merge auth" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge auth" />
+  </component>
+</project>

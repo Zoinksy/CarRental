@@ -2,9 +2,11 @@ from flask import Flask
 from .models import db          # Relative import within backend
 from .config import Config      # Relative import for config
 from .routes.auth_routes import auth_bp  # Relative import for routes
+from flask_cors import CORS
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
     app.config.from_object(Config)
 
     # Initialize DB
