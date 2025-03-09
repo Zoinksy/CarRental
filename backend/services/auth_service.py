@@ -4,9 +4,10 @@ import jwt
 from sqlalchemy.exc import SQLAlchemyError
 from ..models import db
 from ..models import User
+from ..config import Config
 
 # Load SECRET_KEY from env or config
-JWT_SECRET = os.getenv("SECRET_KEY", "development-secret")
+JWT_SECRET = Config.SECRET_KEY
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRE_HOURS = 1
 
@@ -58,7 +59,7 @@ class AuthService:
             if user.check_password(password):
                 expiry = datetime.datetime.utcnow() + datetime.timedelta(hours=JWT_EXPIRE_HOURS)
                 payload = {
-                    "sub": user.id,        # subject: the user's ID
+                    "sub": str(user.id),        # subject: the user's ID
                     "exp": expiry,         # expiration time
                     "username": user.username
                 }
@@ -78,3 +79,4 @@ class AuthService:
                 "success": False,
                 "message": f"Database error: {str(e)}"
             }
+print("JWT_SECRET in auth_service =", JWT_SECRET)

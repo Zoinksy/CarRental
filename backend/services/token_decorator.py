@@ -41,3 +41,4 @@ def token_required(f):
 
         return f(user, *args, **kwargs)
     return decorated
+print("JWT_SECRET in token_decorator =", JWT_SECRET)
