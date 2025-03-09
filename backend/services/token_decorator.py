@@ -2,10 +2,14 @@ import os
 import jwt
 from functools import wraps
 from flask import request, jsonify
+from ..config import Config
 from sqlalchemy.exc import SQLAlchemyError
 from ..models import User
 
-JWT_SECRET = os.getenv("SECRET_KEY", "development-secret")
+JWT_SECRET = Config.SECRET_KEY
+if not JWT_SECRET:
+    raise Exception("SECRET_KEY environment variable is not set")
+
 JWT_ALGORITHM = "HS256"
 
 def token_required(f):
@@ -37,3 +41,4 @@ def token_required(f):
 
         return f(user, *args, **kwargs)
     return decorated
+print("JWT_SECRET in token_decorator =", JWT_SECRET)
