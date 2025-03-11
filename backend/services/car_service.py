@@ -5,25 +5,31 @@ from .telematic_service import TelematicsService
 from ..models.user import User
 
 class CarService:
-
     @staticmethod
-    def get_available_cars():
-        """
-        Business logic to fetch cars that are not currently rented.
-        Possibly filter on 'is_available = True' or 'rental_state = idle', etc.
-        """
-        cars = Car.query.filter_by(available=True).all()
-        results = []
-        for car in cars:
-            results.append({
-                "id": car.id,
-                "vin": car.vin,
-                "location": car.location,
-                "locked": car.locked,
-                "available": car.available
-                # etc.
-            })
-        return results
+    def get_cars_by_category(current_user):
+        all_cars = Car.query.all()
+        active_rentals = []
+        available_cars = []
+        unavailable_cars = []
+        for car in all_cars:
+            # Caută o închiriere activă pentru utilizatorul curent pentru această mașină
+            if current_user:
+                active_rental = Rental.query.filter_by(user_id=current_user.id, car_id=car.id, status="ongoing").first()
+            else:
+                active_rental = None
+
+            if active_rental:
+                active_rentals.append(car.to_dict())
+            elif car.available:
+                available_cars.append(car.to_dict())
+            else:
+                unavailable_cars.append(car.to_dict())
+
+        return {
+            "active_rentals": active_rentals,
+            "available_cars": available_cars,
+            "unavailable_cars": unavailable_cars
+        }
 
     @staticmethod
     def start_rental(current_user, car_id):
@@ -62,28 +68,31 @@ class CarService:
     @staticmethod
     def end_rental(current_user, car_id):
         """
-        1. Validate that the user currently has a rental with this car.
-        2. Query telematics to confirm car is in correct state.
-        3. Mark car as available, update rental record to 'ended'.
-        4. Return success or error.
+        1. Verifică dacă utilizatorul are o închiriere activă pentru mașina cu ID-ul dat.
+        2. Apelează serviciul de telematică pentru a bloca mașina.
+        3. Actualizează înregistrarea de închiriere (status = "ended") și marchează mașina ca disponibilă.
+        4. Returnează un mesaj de succes sau eroare.
         """
         rental = Rental.query.filter_by(user_id=current_user.id, car_id=car_id, status="ongoing").first()
         if not rental:
-            return {"success": False, "message": "No active rental for this user/car"}
+            return {"success": False, "message": "Nu există o închiriere activă pentru această mașină și utilizator."}
 
-        # Check car state from telematics if needed
-        # telematics_state = telematics.get_state(rental.car.vin)
-        # if not telematics_state["doors_closed"]:
-        #     return {"success": False, "message": "Doors are not closed!"}
-
-        # Mark car as available
         car = Car.query.get(car_id)
-        car.is_available = True
-        db.session.add(car)
+        if not car:
+            return {"success": False, "message": "Mașina nu a fost găsită."}
 
-        # Update rental
-        rental.status = "ended"
-        db.session.add(rental)
-        db.session.commit()
+        try:
+            # Apelăm serviciul de telematică pentru a bloca mașina.
+            lock_result = TelematicsService.lock_car(car.vin)
+            if not lock_result.get("success"):
+                return {"success": False, "message": "Nu s-a putut bloca mașina."}
 
-        return {"success": True, "message": "Rental ended", "car_id": car.id}
+            # Actualizăm înregistrarea de închiriere și starea mașinii.
+            rental.status = "ended"
+            car.available = True
+            db.session.commit()
+
+            return {"success": True, "message": "Închirierea a fost încheiată cu succes.", "car_id": car.id}
+        except Exception as e:
+            db.session.rollback()
+            return {"success": False, "message": f"Eroare la încheierea închirierii: {str(e)}"}

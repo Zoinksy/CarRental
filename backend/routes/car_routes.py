@@ -5,15 +5,11 @@ from ..services.car_service import CarService
 car_bp = Blueprint('car_bp', __name__)
 
 @car_bp.route('/', methods=['GET'])
-#@token_required
-def query_available_cars():
-    """
-    Query the cars available for rental.
-    JWT token is validated by @token_required.
-    """
+@token_required
+def query_all_cars(current_user):
     try:
-        available_cars = CarService.get_available_cars()
-        return jsonify({"success": True, "cars": available_cars}), 200
+        data = CarService.get_cars_by_category(current_user)
+        return jsonify({"success": True, **data}), 200
     except Exception as e:
         return jsonify({"success": False, "message": str(e)}), 500
 
