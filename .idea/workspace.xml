@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6d34c07-8487-4c7c-b22c-49700a2fcaae" name="Changes" comment="merge auth">
-      <change beforePath="$PROJECT_DIR$/backend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/car.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/car.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/models/rental.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/models/rental.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/services/car_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/car_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/carsharing-frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/carsharing-frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/carsharing-frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/carsharing-frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/carsharing-frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/carsharing-frontend/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/carsharing-frontend/src/LandingPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/carsharing-frontend/src/LandingPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/carsharing-frontend/src/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/carsharing-frontend/src/LoginPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +59,7 @@
     "Python.auth_service.executor": "Run",
     "Python.token_decorator.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "branch-care-nu-merge-momentan"
+    "git-widget-placeholder": "front-end-for-renting"
   }
 }]]></component>
   <component name="RecentsManager">

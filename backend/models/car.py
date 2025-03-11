@@ -15,3 +15,13 @@ class Car(db.Model):
     @property
     def is_available(self):
         return self.available
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "vin": self.vin,
+            "location": self.location,
+            "locked": self.locked,
+            "available": self.available,
+            "created_at": self.created_at.isoformat() if self.created_at else None
+        }

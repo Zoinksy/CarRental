@@ -3,8 +3,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import carImage from "./assets/car-illustration.png";
 import "./index.css";
+import { useNavigate } from 'react-router-dom';
+
 
 function LandingPage({ token, onLogout }) {
+
+    const navigate = useNavigate();
+
+    const handleFindCar = () => {
+        navigate('/cars'); // navigates to the Available Cars page
+      };
+
     return (
         <>
             <div className="hero-section">
@@ -25,6 +34,9 @@ function LandingPage({ token, onLogout }) {
                             <div className="hero-buttons">
                                 <button className="btn btn-danger" onClick={onLogout}>
                                     Logout
+                                </button>
+                                <button className="btn btn-primary" onClick={handleFindCar}>
+                                    Find me a car!
                                 </button>
                             </div>
                         )}

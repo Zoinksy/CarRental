@@ -4,6 +4,10 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./LandingPage";
 import RegisterPage from "./RegisterPage";
 import LoginPage from "./LoginPage";
+import AvailableCars from "./AvailableCars";
+import ActiveRental from "./ActiveRental";
+
+
 
 function App() {
     const [token, setToken] = useState(null);
@@ -40,7 +44,17 @@ function App() {
                     path="/login"
                     element={<LoginPage onLoginSuccess={handleLoginSuccess} />}
                 />
+
+
+                <Route
+                        path="/cars"
+                        element={<AvailableCars token={token} />}
+                    />
+
+                <Route path="/end_rental" element={<ActiveRental token={token} />} />
+
             </Routes>
+
         </Router>
     );
 }

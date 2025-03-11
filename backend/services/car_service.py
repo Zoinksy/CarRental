@@ -1,6 +1,7 @@
 from ..models import db
 from ..models.car import Car
 from ..models.rental import Rental
+from .telematic_service import TelematicsService
 from ..models.user import User
 
 class CarService:
@@ -36,18 +37,27 @@ class CarService:
         if not car or not car.is_available:
             return {"success": False, "message": "Car not available"}
 
-        # Mark car as rented
-        car.is_available = False
-        db.session.add(car)
-        # Create a Rental record
-        new_rental = Rental(user_id=current_user.id, car_id=car.id, status="ongoing")
-        db.session.add(new_rental)
-        db.session.commit()
+        try:
+            # Marcheză mașina ca indisponibilă
+            car.available = False
+            db.session.add(car)
 
-        # Call telematics service or external API to unlock the car if needed
-        # telematics.unlock_car(car.vin)
+            # Creează o înregistrare pentru închiriere
+            rental = Rental(user_id=current_user.id, car_id=car.id, status="ongoing")
+            db.session.add(rental)
+            db.session.commit()
 
-        return {"success": True, "message": "Rental started", "car_id": car.id}
+            # Apelează serviciul de telematică pentru deblocare
+            unlock_result = TelematicsService.unlock_car(car.vin)
+            if not unlock_result.get("success"):
+                db.session.rollback()
+                return {"success": False, "message": "Nu s-a putut debloca mașina."}
+
+            return {"success": True, "message": "Închiriere începută cu succes.", "rental_id": rental.id,
+                    "car_id": car.id}
+        except Exception as e:
+            db.session.rollback()
+            return {"success": False, "message": f"Eroare la începerea închirierii: {str(e)}"}
 
     @staticmethod
     def end_rental(current_user, car_id):
