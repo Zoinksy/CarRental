@@ -1,62 +1,37 @@
 // src/App.js
-import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./LandingPage";
-import RegisterPage from "./RegisterPage";
-import LoginPage from "./LoginPage";
-import AvailableCars from "./AvailableCars";
-import ActiveRental from "./ActiveRental";
-
-
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import LandingPage from './LandingPage';
+import LoginPage from './LoginPage';
+import RegisterPage from './RegisterPage';
+import AvailableCars from './AvailableCars';
 
 function App() {
-    const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token'));
 
-    useEffect(() => {
-        const savedToken = localStorage.getItem("token");
-        if (savedToken) {
-            setToken(savedToken);
-        }
-    }, []);
+  const handleLogin = (newToken) => {
+    localStorage.setItem('token', newToken);
+    setToken(newToken);
+  };
 
-    const handleLoginSuccess = (newToken) => {
-        setToken(newToken);
-        localStorage.setItem("token", newToken);
-    };
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+  };
 
-    const handleLogout = () => {
-        setToken(null);
-        localStorage.removeItem("token");
-    };
-
-    return (
-        <Router>
-            <Routes>
-                <Route
-                    path="/"
-                    element={<LandingPage token={token} onLogout={handleLogout} />}
-                />
-                <Route
-                    path="/register"
-                    element={<RegisterPage />}
-                />
-                <Route
-                    path="/login"
-                    element={<LoginPage onLoginSuccess={handleLoginSuccess} />}
-                />
-
-
-                <Route
-                        path="/cars"
-                        element={<AvailableCars token={token} />}
-                    />
-
-                <Route path="/end_rental" element={<ActiveRental token={token} />} />
-
-            </Routes>
-
-        </Router>
-    );
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage token={token} onLogout={handleLogout} />} />
+        <Route path="/login" element={<LoginPage onLoginSuccess={handleLogin} />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/cars"
+          element={token ? <AvailableCars /> : <Navigate to="/login" />}
+        />
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;

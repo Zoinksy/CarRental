@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import carImage from "./assets/car-illustration.png";
-import "./index.css";
+import "./styles/index.css";
 import { useNavigate } from 'react-router-dom';
 
 

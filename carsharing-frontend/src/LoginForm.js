@@ -1,5 +1,6 @@
 // src/LoginForm.js
 import React, { useState } from "react";
+import { Link } from 'react-router-dom';
 
 function LoginForm({ onLoginSuccess, setAuthMode }) {
     const [username, setUsername] = useState("");
@@ -32,32 +33,46 @@ function LoginForm({ onLoginSuccess, setAuthMode }) {
             <h4 className="card-title">Login</h4>
             {error && <div className="alert alert-danger">{error}</div>}
             <form onSubmit={handleSubmit}>
-                <div className="form-group mb-2">
+                <div className="form-group mb-2 position-relative">
                     <label>Username</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
+                    <div className="input-group">
+                        <span className="input-group-text">
+                            👤
+                        </span>
+                        <input
+                            type="text"
+                            className="form-control"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            placeholder="Enter your username"
+                        />
+                    </div>
                 </div>
-                <div className="form-group mb-3">
+                <div className="form-group mb-3 position-relative">
                     <label>Password</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
+                    <div className="input-group">
+                        <span className="input-group-text">
+                            🔒
+                        </span>
+                        <input
+                            type="password"
+                            className="form-control"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            placeholder="Enter your password"
+                        />
+                    </div>
                 </div>
                 <button className="btn btn-success w-100">Login</button>
             </form>
 
-            <p className="mt-3 text-center">
-                Do not have an account?{" "}
-                <a href="/register">Register</a>
+            <p className="auth-footer">
+                Don't have an account?{" "}
+                <Link to="/register" className="auth-link">
+                    Register
+                </Link>
             </p>
         </div>
     );

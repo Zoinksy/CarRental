@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import './index.css';
+import './styles/index.css';
+import './styles/AvailableCars.css';
 
 const AvailableCars = () => {
   const [carsData, setCarsData] = useState({
@@ -50,28 +51,40 @@ const AvailableCars = () => {
   // Funcția pentru începerea închirierii
   const startRental = (carId) => {
     setLoading(true);
+    const carToRent = carsData.available_cars.find(car => car.id === carId);
+    
+    // Update state optimistically before the API call
+    setCarsData(prevData => ({
+      ...prevData,
+      available_cars: prevData.available_cars.filter(car => car.id !== carId),
+      active_rentals: [...prevData.active_rentals, { ...carToRent, rental: { user_id: currentUserId } }]
+    }));
+
+    setMessage(`Închiriere începută pentru mașina ${carToRent.vin}`);
+
     axios.post('http://localhost:5000/cars/start_rental', { car_id: carId }, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
       .then(response => {
-        if (response.data.success) {
-          setMessage(`Închiriere începută pentru mașina cu id ${carId}`);
-          // Actualizează state-ul: mută mașina din available_cars în active_rentals
-          setCarsData(prevData => {
-            const carToRent = prevData.available_cars.find(car => car.id === carId);
-            return {
-              ...prevData,
-              available_cars: prevData.available_cars.filter(car => car.id !== carId),
-              active_rentals: [...prevData.active_rentals, { ...carToRent, rental: { user_id: currentUserId } }]
-            };
-          });
-        } else {
+        if (!response.data.success) {
+          // Revert changes if the API call fails
+          setCarsData(prevData => ({
+            ...prevData,
+            available_cars: [...prevData.available_cars, carToRent],
+            active_rentals: prevData.active_rentals.filter(car => car.id !== carId)
+          }));
           setMessage(response.data.message || 'Failed to start rental');
         }
       })
       .catch(error => {
+        // Revert changes on error
+        setCarsData(prevData => ({
+          ...prevData,
+          available_cars: [...prevData.available_cars, carToRent],
+          active_rentals: prevData.active_rentals.filter(car => car.id !== carId)
+        }));
         console.error('Error starting rental:', error.response || error);
         setMessage('Error starting rental');
       })
@@ -81,28 +94,40 @@ const AvailableCars = () => {
   // Funcția pentru încheierea închirierii
   const endRental = (carId) => {
     setLoading(true);
+    const carToEnd = carsData.active_rentals.find(car => car.id === carId);
+
+    // Update state optimistically before the API call
+    setCarsData(prevData => ({
+      ...prevData,
+      active_rentals: prevData.active_rentals.filter(car => car.id !== carId),
+      available_cars: [...prevData.available_cars, { ...carToEnd, available: true, rental: null }]
+    }));
+
+    setMessage(`Închirierea pentru mașina ${carToEnd.vin} a fost încheiată.`);
+
     axios.post('http://localhost:5000/cars/end_rental', { car_id: carId }, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     })
       .then(response => {
-        if (response.data.success) {
-          setMessage(`Închirierea pentru mașina cu id ${carId} a fost încheiată.`);
-          // Actualizează state-ul: elimină mașina din active_rentals și adaug-o în available_cars
-          setCarsData(prevData => {
-            const endedCar = prevData.active_rentals.find(car => car.id === carId);
-            return {
-              ...prevData,
-              active_rentals: prevData.active_rentals.filter(car => car.id !== carId),
-              available_cars: [...prevData.available_cars, { ...endedCar, available: true, rental: null }]
-            };
-          });
-        } else {
+        if (!response.data.success) {
+          // Revert changes if the API call fails
+          setCarsData(prevData => ({
+            ...prevData,
+            active_rentals: [...prevData.active_rentals, carToEnd],
+            available_cars: prevData.available_cars.filter(car => car.id !== carId)
+          }));
           setMessage(response.data.message || 'Failed to end rental');
         }
       })
       .catch(error => {
+        // Revert changes on error
+        setCarsData(prevData => ({
+          ...prevData,
+          active_rentals: [...prevData.active_rentals, carToEnd],
+          available_cars: prevData.available_cars.filter(car => car.id !== carId)
+        }));
         console.error('Error ending rental:', error.response || error);
         setMessage('Error ending rental');
       })
@@ -110,52 +135,47 @@ const AvailableCars = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <div className="d-flex justify-content-between align-items-center mb-4">
+    <div className="cars-container">
+      <div className="section-header">
         <h1>Mașini</h1>
-        <button className="btn btn-secondary" onClick={() => navigate('/')}>
-          Înapoi
-        </button>
+        <button className="btn-back" onClick={() => navigate('/')}>Înapoi</button>
       </div>
-      {loading && <p className="text-info">Se încarcă...</p>}
-      {message && <div className="alert alert-info">{message}</div>}
+      
+      {loading && <p className="loading-spinner">Se încarcă...</p>}
+      {message && <div className="alert-custom">{message}</div>}
 
       {/* Secțiunea 1: Închirieri active */}
-      <section className="mb-4">
+      <section className="cars-section">
         <h2>Închirieri active</h2>
-        {carsData.active_rentals.length > 0 ? (
-          <div className="row">
-            {carsData.active_rentals.map(car => (
-              <div key={car.id} className="col-md-4 mb-3">
-                <div className="card car-card">
-                  <div className="card-body">
-                    <h5 className="card-title">{car.vin}</h5>
-                    <p className="card-text">{car.location}</p>
-                    <button className="btn btn-danger" onClick={() => endRental(car.id)}>
-                      Încheie Închirierea
-                    </button>
-                  </div>
+        <div className="row">
+          {carsData.active_rentals.map(car => (
+            <div key={car.id} className="col-md-4 mb-4">
+              <div className="car-card">
+                <div className="card-body">
+                  <h5 className="card-title">{car.vin}</h5>
+                  <p className="card-text">{car.location}</p>
+                  <button className="btn-end-rental" onClick={() => endRental(car.id)}>
+                    Încheie Închirierea
+                  </button>
                 </div>
               </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-muted">Nu ai închirieri active.</p>
-        )}
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* Secțiunea 2: Mașini disponibile */}
-      <section className="mb-4">
+      <section className="cars-section">
         <h2>Mașini disponibile pentru închiriere</h2>
         {carsData.available_cars.length > 0 ? (
-          <div className="row">
+          <div className="row g-4">
             {carsData.available_cars.map(car => (
-              <div key={car.id} className="col-md-4 mb-3">
-                <div className="card car-card">
+              <div key={car.id} className="col-12 col-md-4 mb-3">
+                <div className="car-card">
                   <div className="card-body">
                     <h5 className="card-title">{car.vin}</h5>
                     <p className="card-text">{car.location}</p>
-                    <button className="btn btn-success" onClick={() => startRental(car.id)}>
+                    <button className="btn-start-rental" onClick={() => startRental(car.id)}>
                       Începe Închirierea
                     </button>
                   </div>
@@ -169,17 +189,17 @@ const AvailableCars = () => {
       </section>
 
       {/* Secțiunea 3: Mașini indisponibile */}
-      <section className="mb-4">
+      <section className="cars-section">
         <h2>Mașini indisponibile</h2>
         {carsData.unavailable_cars.length > 0 ? (
-          <div className="row">
+          <div className="row g-4">
             {carsData.unavailable_cars.map(car => (
-              <div key={car.id} className="col-md-4 mb-3">
-                <div className="card car-card">
+              <div key={car.id} className="col-12 col-md-4 mb-3">
+                <div className="car-card">
                   <div className="card-body">
                     <h5 className="card-title">{car.vin}</h5>
                     <p className="card-text">{car.location}</p>
-                    <button className="btn btn-secondary" disabled>
+                    <button className="btn-unavailable" disabled>
                       Not available for now
                     </button>
                   </div>

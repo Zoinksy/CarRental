@@ -1,0 +1,222 @@
+.auth-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #6fd7c3 0%, #3cb2ad 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.auth-card {
+    background: white;
+    border-radius: 2rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    padding: 3rem;
+    animation: slideUpFade 0.5s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.auth-header h2 {
+    font-size: 2.5rem;
+    color: #2d3748;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+.form-control {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #6fd7c3;
+    box-shadow: 0 0 0 4px rgba(111, 215, 195, 0.1);
+    outline: none;
+}
+
+.auth-button {
+    background: linear-gradient(135deg, #6fd7c3 0%, #3cb2ad 100%);
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(111, 215, 195, 0.2);
+}
+
+.auth-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: 50%;
+    transition: transform 0.6s ease;
+}
+
+.auth-button:hover::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+    color: #718096;
+}
+
+.auth-footer a {
+    color: #3cb2ad;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.auth-footer a:hover {
+    color: #2c8f8a;
+}
+
+.auth-link {
+    color: #3cb2ad;
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.auth-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: linear-gradient(135deg, #6fd7c3 0%, #3cb2ad 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.auth-link:hover {
+    color: #2c8f8a;
+}
+
+.auth-link:hover::after {
+    transform: scaleX(1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-transition-enter {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+    opacity: 1;
+}
+
+.page-transition-exit-active {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 300ms, transform 300ms;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .container h2 {
+        font-size: 2rem;
+    }
+
+    .animated-card {
+        padding: 1.5rem !important;
+    }
+}
+
+/* Add loading state animations */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.auth-button.loading {
+    animation: pulse 1.5s infinite;
+    cursor: wait;
+}

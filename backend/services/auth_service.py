@@ -1,9 +1,9 @@
 import os
 import datetime
 import jwt
+from typing import Optional, Dict, Any
 from sqlalchemy.exc import SQLAlchemyError
-from ..models import db
-from ..models import User
+from ..models import db, User
 from ..config import Config
 
 # Load SECRET_KEY from env or config
@@ -12,6 +12,15 @@ JWT_ALGORITHM = "HS256"
 JWT_EXPIRE_HOURS = 1
 
 class AuthService:
+    @classmethod
+    def verify_token(cls, token: str) -> Dict[str, Any]:
+        try:
+            payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+            return {"success": True, "payload": payload}
+        except jwt.ExpiredSignatureError:
+            return {"success": False, "message": "Token has expired"}
+        except jwt.InvalidTokenError:
+            return {"success": False, "message": "Invalid token"}
 
     @staticmethod
     def register_user(username: str, password: str):
@@ -47,7 +56,6 @@ class AuthService:
 
     @staticmethod
     def login_user(username: str, password: str):
-
         if not username or not password:
             return {"success": False, "message": "Missing username or password"}
 
@@ -79,4 +87,5 @@ class AuthService:
                 "success": False,
                 "message": f"Database error: {str(e)}"
             }
+
 print("JWT_SECRET in auth_service =", JWT_SECRET)
