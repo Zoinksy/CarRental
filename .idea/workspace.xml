@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6d34c07-8487-4c7c-b22c-49700a2fcaae" name="Changes" comment="merge auth">
-      <change beforePath="$PROJECT_DIR$/.idea/CarRental.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/CarRental.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/routes/car_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/routes/car_routes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/services/car_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/services/car_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/carsharing-frontend/src/AvailableCars.js" beforeDir="false" afterPath="$PROJECT_DIR$/carsharing-frontend/src/AvailableCars.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +50,8 @@
     "Python.auth_service.executor": "Run",
     "Python.token_decorator.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "front-end-for-renting"
+    "git-widget-placeholder": "styling-improvements",
+    "last_opened_file_path": "C:/Users/cosmi/Documents/GitHub/CarRental"
   }
 }]]></component>
   <component name="RecentsManager">

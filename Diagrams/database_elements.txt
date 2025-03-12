@@ -1,0 +1,7 @@
+INSERT INTO cars (vin, location, locked, available)
+VALUES ('VIN1234', 'Downtown', true, true);
+('1HGCM82633A123456', 'Downtown', TRUE, TRUE),
+('19XFC2F59GE654321', 'Airport', FALSE, TRUE),
+('3N1BC13E29L789012', 'City Center', TRUE, FALSE),
+('JH4KA8160RC345678', 'Suburbs', FALSE, TRUE),
+('5YJ3E1EA5JF987654', 'Uptown', TRUE, TRUE);
